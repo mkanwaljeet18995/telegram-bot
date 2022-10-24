@@ -1,1 +1,1 @@
-web: python telegram_interactive.py
+web: python3 telegram_interactive.py

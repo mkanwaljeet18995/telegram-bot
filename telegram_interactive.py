@@ -123,14 +123,14 @@ def main():
     disp.add_handler(telegram.ext.CommandHandler("TEST", TEST))
     disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
 
-    updater.start_polling()
+    #updater.start_polling()
     updater.idle()
-    # updater.start_webhook(listen="0.0.0.0",
-    #                       port=int(PORT),
-    #                       url_path=TOKEN)
-    # updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
-    #
-    # updater.idle()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
+
+    updater.idle()
 
 
 if __name__ == '__main__':
