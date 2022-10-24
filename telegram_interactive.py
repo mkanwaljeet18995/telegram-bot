@@ -18,6 +18,7 @@ TOKEN = "5544054333:AAGt__sHvHACotN3azOVM_GP4q5I4j9qx7M"
 
 
 def start(update, context):
+    global name
     user = update.message.chat.username
     name = update.message.chat.first_name
     text = f"""Hello!! Welcome to jenkins bot {name}
@@ -81,7 +82,7 @@ def QA(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "QA"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "QA", "Name": name}, token=jenkins_token)
     # status = con.build_job(name=jobName, parameters={"Env": "QA"}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on QA environment'
@@ -93,7 +94,7 @@ def DEV(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "DEV"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "DEV", "Name": name}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on DEV environment'
     update.message.reply_text(text)
@@ -104,7 +105,7 @@ def TEST(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "TEST"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "TEST", "Name": name}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on TEST environment'
     update.message.reply_text(text)
@@ -122,14 +123,14 @@ def main():
     disp.add_handler(telegram.ext.CommandHandler("TEST", TEST))
     disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
 
-    # updater.start_polling()
-    # updater.idle()
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
-
+    updater.start_polling()
     updater.idle()
+    # updater.start_webhook(listen="0.0.0.0",
+    #                       port=int(PORT),
+    #                       url_path=TOKEN)
+    # updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
+    #
+    # updater.idle()
 
 
 if __name__ == '__main__':
