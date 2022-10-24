@@ -1,1 +1,1 @@
-worker: python telegram_interactive.py
+web: python telegram_interactive.py
