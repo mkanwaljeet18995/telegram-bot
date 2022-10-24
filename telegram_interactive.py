@@ -124,7 +124,7 @@ def main():
     disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
 
     #updater.start_polling()
-    updater.idle()
+    # updater.idle()
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
