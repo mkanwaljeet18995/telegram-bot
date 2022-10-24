@@ -4,11 +4,12 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 import jenkins
 import os
 
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 8443))
 # jenkins_token="11f4e5aa97f1f2362f6d43489b85d567d1"
 # jenkins_token="113c16d78a48ac3f25c8d58501156e8d53"
-jenkins_token="11e51328abc718ad2fafb702bb28fce2f0"
+jenkins_token = "11e51328abc718ad2fafb702bb28fce2f0"
 TOKEN = "5544054333:AAGt__sHvHACotN3azOVM_GP4q5I4j9qx7M"
+
 
 # # Stages
 # DISPLAYJOBS, SET_ENV, SET_JIRA, PARAMETERS, TRIGGER_BUILD, CURRENT_BUILD_CANCEL_OPTION, CANCEL_BUILD = range(7)
@@ -80,7 +81,7 @@ def QA(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status=jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "QA"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "QA"}, token=jenkins_token)
     # status = con.build_job(name=jobName, parameters={"Env": "QA"}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on QA environment'
@@ -92,7 +93,7 @@ def DEV(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status=jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "DEV"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "DEV"}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on DEV environment'
     update.message.reply_text(text)
@@ -103,28 +104,33 @@ def TEST(update, context):
     print("+++++++++++++++++++++++++++++++++++++\n")
     print(jobName)
     print("++++++++++++++++++++++++++++++++++++++\n")
-    status=jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "TEST"}, token=jenkins_token)
+    status = jenkins.Jenkins.build_job(con, name=jobName, parameters={"Env": "TEST"}, token=jenkins_token)
     print(status)
     text = f'{jobName} is  triggered successfully on TEST environment'
     update.message.reply_text(text)
 
 
-updater = telegram.ext.Updater(TOKEN, use_context=True)
-disp = updater.dispatcher
+def main():
+    updater = telegram.ext.Updater(TOKEN, use_context=True)
+    disp = updater.dispatcher
 
-disp.add_handler(telegram.ext.CommandHandler("start", start))
-disp.add_handler(telegram.ext.CommandHandler("helper", help))
-disp.add_handler(telegram.ext.CommandHandler("regression", Regression))
-disp.add_handler(telegram.ext.CommandHandler("smoke", Smoke))
-disp.add_handler(telegram.ext.CommandHandler("QA", QA))
-disp.add_handler(telegram.ext.CommandHandler("TEST", TEST))
-disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
+    disp.add_handler(telegram.ext.CommandHandler("start", start))
+    disp.add_handler(telegram.ext.CommandHandler("helper", help))
+    disp.add_handler(telegram.ext.CommandHandler("regression", Regression))
+    disp.add_handler(telegram.ext.CommandHandler("smoke", Smoke))
+    disp.add_handler(telegram.ext.CommandHandler("QA", QA))
+    disp.add_handler(telegram.ext.CommandHandler("TEST", TEST))
+    disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
 
-# updater.start_polling()
-# updater.idle()
-updater.start_webhook(listen="0.0.0.0",
+    # updater.start_polling()
+    # updater.idle()
+    updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
-updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
+    updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
 
-updater.idle()
+    updater.idle()
+
+
+if __name__ == '__main__':
+    main()
