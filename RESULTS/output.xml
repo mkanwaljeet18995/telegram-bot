@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.6 on win32)" generated="20220813 19:52:16.259" rpa="false" schemaversion="3">
+<suite id="s1" name="01 SearchTest" source="C:\Users\mkanw\PycharmProjects\pythonProject\TESTS\01_SearchTest.robot">
+<kw name="begin test" library="02_CommonFunctions" type="SETUP">
+<kw name="Set Environment Variable" library="OperatingSystem">
+<arg>webdriver.chrome.driver</arg>
+<arg>${chromeDriverPath}</arg>
+<doc>Sets an environment variable to a specified value.</doc>
+<msg timestamp="20220813 19:52:16.417" level="INFO">Environment variable 'webdriver.chrome.driver' set to value 'C:\Users\mkanw\PycharmProjects\pythonProject/chromedriver.exe'.</msg>
+<status status="PASS" starttime="20220813 19:52:16.417" endtime="20220813 19:52:16.417"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${Web_URL}</arg>
+<arg>${Browser}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220813 19:52:16.417" level="INFO">Opening browser 'chrome' to base url 'https://google.co.in'.</msg>
+<status status="PASS" starttime="20220813 19:52:16.417" endtime="20220813 19:52:21.532"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20220813 19:52:21.532" endtime="20220813 19:52:21.659"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:16.417" endtime="20220813 19:52:21.659"/>
+</kw>
+<test id="s1-t1" name="Search Test in Google Page" line="10">
+<kw name="Search Google page" library="01_SearchFunction">
+<arg>h</arg>
+<kw name="Search text" library="01_SearchPage">
+<arg>${arg1}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${Search_Bar}</arg>
+<arg>${arg1}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20220813 19:52:21.661" level="INFO">Typing text 'h' into text field '//input[@name='q']'.</msg>
+<status status="PASS" starttime="20220813 19:52:21.661" endtime="20220813 19:52:21.736"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>//ul/div/ul/li</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20220813 19:52:21.737" endtime="20220813 19:52:21.971"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//ul/div/ul/li[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20220813 19:52:21.971" level="INFO">Clicking element '//ul/div/ul/li[1]'.</msg>
+<status status="PASS" starttime="20220813 19:52:21.971" endtime="20220813 19:52:25.330"/>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<arg>${ScreenShotPath}/SearchText.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20220813 19:52:25.474" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="../RESOURCES/TEST_SCREENSHOT/SearchText.png"&gt;&lt;img src="../RESOURCES/TEST_SCREENSHOT/SearchText.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20220813 19:52:25.330" endtime="20220813 19:52:25.474"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:21.661" endtime="20220813 19:52:25.475"/>
+</kw>
+<kw name="Count Links" library="01_SearchPage">
+<var>${Link_count}</var>
+<kw name="Get Element Count" library="SeleniumLibrary">
+<var>${AllLinksCount}</var>
+<arg>xpath:${Links_Count}</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<msg timestamp="20220813 19:52:25.484" level="INFO">${AllLinksCount} = 6</msg>
+<status status="PASS" starttime="20220813 19:52:25.475" endtime="20220813 19:52:25.484"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${AllLinksCount}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20220813 19:52:25.484" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20220813 19:52:25.484" endtime="20220813 19:52:25.484"/>
+</kw>
+<msg timestamp="20220813 19:52:25.484" level="INFO">${Link_count} = 6</msg>
+<status status="PASS" starttime="20220813 19:52:25.475" endtime="20220813 19:52:25.484"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${Link_count}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220813 19:52:25.484" endtime="20220813 19:52:25.484"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:21.660" endtime="20220813 19:52:25.484"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:21.659" endtime="20220813 19:52:25.484"/>
+</test>
+<kw name="End test" library="02_CommonFunctions" type="TEARDOWN">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220813 19:52:25.484" endtime="20220813 19:52:27.628"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:25.484" endtime="20220813 19:52:27.628"/>
+</kw>
+<status status="PASS" starttime="20220813 19:52:16.259" endtime="20220813 19:52:27.628"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="01 SearchTest">01 SearchTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
