@@ -2,6 +2,9 @@ import telegram.ext
 from telegram.ext import CallbackContext
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 import jenkins
+import os
+
+PORT = int(os.environ.get('PORT', 5000))
 # jenkins_token="11f4e5aa97f1f2362f6d43489b85d567d1"
 # jenkins_token="113c16d78a48ac3f25c8d58501156e8d53"
 jenkins_token="11e51328abc718ad2fafb702bb28fce2f0"
@@ -117,5 +120,11 @@ disp.add_handler(telegram.ext.CommandHandler("QA", QA))
 disp.add_handler(telegram.ext.CommandHandler("TEST", TEST))
 disp.add_handler(telegram.ext.CommandHandler("DEV", DEV))
 
-updater.start_polling()
+# updater.start_polling()
+# updater.idle()
+updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+updater.bot.setWebhook('https://telegram-app-k.herokuapp.com/' + TOKEN)
+
 updater.idle()
